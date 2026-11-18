@@ -127,8 +127,9 @@ Product List:</h4>
           </thead>
    <tbody >  
             <?php
-            $qo = "SELECT * FROM products_details as c
-       INNER JOIN events_categories as b ON c.eca_id=b.eca_id
+            $qo = "SELECT c.p_id, c.p_name, c.p_imgurl, b.eca_title
+       FROM products_details AS c
+       LEFT JOIN events_categories AS b ON c.eca_id=b.eca_id
       ORDER BY c.p_id DESC";
             
             
