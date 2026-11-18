@@ -111,5 +111,22 @@ function formatCustomNumber1($number) {
     return $formatted_number;
 }
 
+function product_image_src($name, $stored) {
+    $name = trim((string) $name);
+    $stored = trim((string) $stored);
+    if (!preg_match('/^EM-[A-Za-z0-9.]+(?:-[A-Za-z0-9.]+)*$/', $name)) {
+        return $stored;
+    }
+    $root = dirname(__DIR__);
+    foreach (array('png', 'jpg', 'jpeg', 'webp') as $ext) {
+        foreach (array("images/$name.$ext", "product-img/$name.$ext") as $rel) {
+            if (is_file($root . '/' . $rel)) {
+                return '/' . $rel;
+            }
+        }
+    }
+    return '/images/' . $name . '.png';
+}
+
 
 ?>

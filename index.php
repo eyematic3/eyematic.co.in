@@ -320,7 +320,7 @@ height:90vh;
             border-radius: 10px; /* Adds border radius */
             overflow: hidden;">
                      
-                            <div class="img-wrapper" style="background-image: url('<?php echo $res['p_imgurl']; ?>');">
+                            <div class="img-wrapper" style="background-image: url('<?php echo htmlspecialchars(product_image_src($res['p_name'], $res['p_imgurl']), ENT_QUOTES); ?>');">
                                                    
                         </div>
                         <div class="product-style-3 product-style-chair" style="padding: 10px;">

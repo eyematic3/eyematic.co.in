@@ -143,7 +143,7 @@ Product List:</h4>
             <td>
             <?php echo $e_id; ?> </td>
             
-     <td> <img alt="" src="<?php echo $res['p_imgurl']; ?>" style="width: 70px;"> </td>
+     <td> <img alt="" src="<?php echo htmlspecialchars(product_image_src($res['p_name'], $res['p_imgurl']), ENT_QUOTES); ?>" style="width: 70px;"> </td>
          <td><?php echo $res['p_name']; ?></td>    
       <!--         
  <td><?php echo $res['p_price']; ?></td>
