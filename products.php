@@ -101,17 +101,23 @@ $query=mysqli_query($con,$q);
              <div class="row g-sm-4 g-3">
                 
                   <?php
-            $qo = "SELECT * FROM products_details as c
-       INNER JOIN events_categories as b ON c.eca_id=b.eca_id
-      ORDER BY c.p_id DESC";
-            if(isset($_GET['c'])){
-                $eca_id=$_GET['c'];
-                $qo = "SELECT * FROM products_details as c
-       INNER JOIN events_categories as b ON c.eca_id=b.eca_id
-   WHERE b.eca_id='$eca_id' ORDER BY c.p_id DESC";
-                
+            $eca_id = 0;
+            if (isset($_GET['c']) && ctype_digit((string) $_GET['c'])) {
+                $eca_id = (int) $_GET['c'];
             }
-            
+            if ($eca_id > 0) {
+                $qo = "SELECT c.p_id, c.p_name, c.p_imgurl, b.eca_title
+       FROM products_details AS c
+       LEFT JOIN events_categories AS b ON c.eca_id=b.eca_id
+       WHERE c.eca_id=$eca_id
+       ORDER BY c.p_id DESC";
+            } else {
+                $qo = "SELECT c.p_id, c.p_name, c.p_imgurl, b.eca_title
+       FROM products_details AS c
+       LEFT JOIN events_categories AS b ON c.eca_id=b.eca_id
+       ORDER BY c.p_id DESC";
+            }
+
             $queryh = mysqli_query($conf, $qo);
             
             while ($res = mysqli_fetch_array($queryh)) {
@@ -130,9 +136,9 @@ $query=mysqli_query($con,$q);
                         </div>
                         <div class="product-style-3 product-style-chair" style="padding: 10px;">
                             <div class="product-title d-block mb-0">
-                                <p class="font-light mb-sm-2 mb-0"><?php echo $res['eca_title']; ?></p>
+                                <p class="font-light mb-sm-2 mb-0"><?php echo htmlspecialchars((string) $res['eca_title']); ?></p>
                            
-                                    <h5   class="font-default"><?php echo $res['p_name']; ?></h5>
+                                    <h5   class="font-default"><?php echo htmlspecialchars($res['p_name']); ?></h5>
                               
                             </div>
                       

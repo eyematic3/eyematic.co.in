@@ -303,16 +303,15 @@ height:90vh;
             <div class="row g-sm-4 g-3">
             
                   <?php
-            $qo = "SELECT * FROM products_details as c
-       INNER JOIN events_categories as b ON c.eca_id=b.eca_id
+            $qo = "SELECT c.p_id, c.p_name, c.p_imgurl, b.eca_title
+       FROM products_details AS c
+       LEFT JOIN events_categories AS b ON c.eca_id=b.eca_id
       ORDER BY c.p_id DESC";
             
-            $count=0;
             $queryh = mysqli_query($conf, $qo);
             
             while ($res = mysqli_fetch_array($queryh)) {
                 $e_id=$res['p_id'];
-                $count++;
        ?>
             
                 <div class="col-xl-3 col-lg-3 col-md-6">
@@ -326,9 +325,9 @@ height:90vh;
                         </div>
                         <div class="product-style-3 product-style-chair" style="padding: 10px;">
                             <div class="product-title d-block mb-0">
-                                <p class="font-light mb-sm-2 mb-0"><?php echo $res['eca_title']; ?></p>
+                                <p class="font-light mb-sm-2 mb-0"><?php echo htmlspecialchars((string) $res['eca_title']); ?></p>
                            
-                                    <h5   class="font-default"><?php echo $res['p_name']; ?></h5>
+                                    <h5   class="font-default"><?php echo htmlspecialchars($res['p_name']); ?></h5>
                               
                             </div>
                      <!--       <div class="main-price">
@@ -337,7 +336,7 @@ height:90vh;
                         </div>  
                     </div>
                 </div>
-<?php if($count==8){break;} } ?>
+<?php } ?>
             
 
             </div>
